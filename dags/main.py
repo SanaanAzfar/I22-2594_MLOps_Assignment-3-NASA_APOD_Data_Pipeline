@@ -7,6 +7,34 @@ import subprocess
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
+def commit_to_git(**kwargs):
+    """Step 5: Commit DVC metadata to Git"""
+    try:
+        
+        subprocess.run(['git', 'config', 'user.email', 'sanaanazfar742004@example.com'])
+        subprocess.run(['git', 'config', 'user.name', 'SanaanAzfar'])
+        
+    
+        subprocess.run(['git', 'add', 'apod_data.csv.dvc', '.gitignore'], check=True)
+        
+        commit_result = subprocess.run(
+            ['git', 'commit', '-m', f'Update APOD data: {datetime.now().isoformat()}'],
+            capture_output=True,
+            text=True
+        )
+        
+        if commit_result.returncode == 0:
+            print(" Git commit successful")
+            return True
+        else:
+            print(f" Git commit: {commit_result.stderr}")
+            return True  
+            
+    except Exception as e:
+        print(f" Git operation: {str(e)}")
+        return True  
+
+
 def version_with_dvc(**kwargs):
     try:
         result = subprocess.run(
@@ -157,3 +185,10 @@ with DAG(
     )
 
     [load_postgres_task, save_csv_task] >> dvc_task
+
+    git_task = PythonOperator(
+    task_id='commit_to_git',
+    python_callable=commit_to_git
+    )
+
+    dvc_task >> git_task
