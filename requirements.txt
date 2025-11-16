@@ -1,0 +1,39 @@
+
+# Core Airflow & Astronomer
+apache-airflow==2.8.3
+astronomer-cosmos==1.3.0
+astronomer-providers==1.19.4
+
+# Data Processing
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Database
+psycopg2-binary>=2.9.0
+SQLAlchemy>=1.4.0
+alembic>=1.11.0
+
+# API & HTTP
+requests>=2.28.0
+urllib3>=2.0.0
+
+# Data Version Control
+dvc[s3]>=3.0.0
+dvc-ssh>=2.0.0
+
+# Container & Deployment
+docker>=6.0.0
+python-dotenv>=1.0.0
+
+# Utilities
+python-dateutil>=2.8.0
+pytz>=2023.0
+click>=8.0.0
+Jinja2>=3.0.0
+
+# Security
+cryptography>=41.0.0
+PyYAML>=6.0.0
+
+# Monitoring & Logging
+rich>=13.0.0
